@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AbaChat - 私密聊天室</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 口令输入界面 -->
+    <div id="login-screen" class="screen">
+      <div class="login-card">
+        <div class="logo">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h1>AbaChat</h1>
+        <p class="subtitle">私密聊天室</p>
+        <form id="login-form">
+          <div class="input-group">
+            <label>聊天模式</label>
+            <div class="mode-selector">
+              <label class="mode-option">
+                <input type="radio" name="chat-mode" value="private" checked>
+                <div class="mode-card">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                  <span>一对一</span>
+                  <small>最多2人</small>
+                </div>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="chat-mode" value="group">
+                <div class="mode-card">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <circle cx="17" cy="7" r="3"></circle>
+                    <path d="M21 12v4a3 3 0 0 1-3 3h-2"></path>
+                  </svg>
+                  <span>多人聊天</span>
+                  <small>最多10人</small>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="room-password">房间口令</label>
+            <input
+              type="password"
+              id="room-password"
+              placeholder="请输入房间口令"
+              required
+              autocomplete="off"
+            >
+          </div>
+          <div class="input-group">
+            <label for="nickname">昵称（可选）</label>
+            <input
+              type="text"
+              id="nickname"
+              placeholder="留空将随机分配"
+              maxlength="20"
+              autocomplete="off"
+            >
+          </div>
+          <button type="submit" class="btn-primary">进入聊天室</button>
+        </form>
+        <div id="login-error" class="error-message"></div>
+      </div>
+    </div>
+
+    <!-- 等待界面 -->
+    <div id="waiting-screen" class="screen hidden">
+      <div class="waiting-card">
+        <div class="spinner"></div>
+        <h2>等待对方加入...</h2>
+        <p>你已成功进入聊天室，等待另一人加入</p>
+        <div class="room-info">
+          <span>当前人数: <strong id="current-users">1</strong> / <strong id="max-users">2</strong></span>
+        </div>
+        <button id="leave-btn" class="btn-secondary">离开聊天室</button>
+      </div>
+    </div>
+
+    <!-- 聊天界面 -->
+    <div id="chat-screen" class="screen hidden">
+      <header class="chat-header">
+        <div class="header-left">
+          <h2>AbaChat</h2>
+          <span class="room-status">
+            <span class="status-dot online"></span>
+            <span id="status-text">在线</span>
+          </span>
+        </div>
+        <div class="header-right">
+          <span class="user-info">
+            <span id="my-nickname"></span>
+          </span>
+          <button id="toggle-users-btn" class="btn-small" title="在线用户">👥 <span id="online-count">1</span></button>
+          <button id="chat-leave-btn" class="btn-small">离开</button>
+        </div>
+      </header>
+
+      <div class="chat-layout">
+        <!-- 在线用户列表面板 -->
+        <aside id="users-panel" class="users-panel hidden">
+          <h3>在线用户</h3>
+          <ul id="users-list"></ul>
+        </aside>
+
+        <div class="chat-main">
+          <div class="chat-messages" id="chat-messages">
+            <div class="system-message" id="welcome-message">
+              欢迎进入聊天室，请友好交流
+            </div>
+          </div>
+
+          <!-- 输入指示器 -->
+          <div id="typing-indicator" class="typing-indicator hidden">
+            <span id="typing-text"></span>
+          </div>
+
+          <form class="chat-input" id="chat-form">
+            <button type="button" id="emoji-btn" class="btn-icon" title="表情">😊</button>
+            <input
+              type="text"
+              id="message-input"
+              placeholder="输入消息..."
+              maxlength="2000"
+              autocomplete="off"
+            >
+            <button type="submit" class="btn-send">发送</button>
+          </form>
+
+          <!-- 表情面板 -->
+          <div id="emoji-panel" class="emoji-panel hidden">
+            <div class="emoji-grid" id="emoji-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 房间已满提示 -->
+    <div id="full-screen" class="screen hidden">
+      <div class="full-card">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h2>房间已满</h2>
+        <p>该房间当前人数已达上限，请稍后再试</p>
+        <button id="back-btn" class="btn-primary">返回</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="client.js"></script>
+</body>
+</html>

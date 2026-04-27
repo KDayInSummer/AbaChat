@@ -1,0 +1,83 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.1
+2 info using node@v24.11.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:D:\GitHub\AbaChat\.npmrc
+5 silly config load:file:C:\Users\89519\.npmrc
+6 silly config load:file:C:\Program Files\nodejs\node_global\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" "%USERPROFILE%/.npm-cache"
+9 verbose logfile logs-max:10 dir:D:\GitHub\AbaChat\%USERPROFILE%\.npm-cache\_logs\2026-04-27T03_49_47_579Z-
+10 verbose logfile D:\GitHub\AbaChat\%USERPROFILE%\.npm-cache\_logs\2026-04-27T03_49_47_579Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 silly idealTree buildDeps
+14 silly fetch manifest ws@^8.16.0
+15 silly packumentCache full:https://registry.npmmirror.com/ws cache-miss
+16 http fetch GET 200 https://registry.npmmirror.com/ws 217ms (cache miss)
+17 silly packumentCache full:https://registry.npmmirror.com/ws set size:92971 disposed:false
+18 silly fetch manifest bufferutil@^4.0.1
+19 silly packumentCache full:https://registry.npmmirror.com/bufferutil cache-miss
+20 http fetch GET 200 https://registry.npmmirror.com/npm 270ms
+21 http fetch GET 200 https://registry.npmmirror.com/bufferutil 57ms (cache miss)
+22 silly packumentCache full:https://registry.npmmirror.com/bufferutil set size:11537 disposed:false
+23 silly fetch manifest utf-8-validate@>=5.0.2
+24 silly packumentCache full:https://registry.npmmirror.com/utf-8-validate cache-miss
+25 http fetch GET 200 https://registry.npmmirror.com/utf-8-validate 39ms (cache miss)
+26 silly packumentCache full:https://registry.npmmirror.com/utf-8-validate set size:17208 disposed:false
+27 silly fetch manifest uuid@^9.0.0
+28 silly packumentCache full:https://registry.npmmirror.com/uuid cache-miss
+29 http fetch GET 200 https://registry.npmmirror.com/uuid 42ms (cache miss)
+30 silly packumentCache full:https://registry.npmmirror.com/uuid set size:34285 disposed:false
+31 silly placeDep ROOT uuid@9.0.1 OK for: abachat@1.0.0 want: ^9.0.0
+32 silly placeDep ROOT ws@8.20.0 OK for: abachat@1.0.0 want: ^8.16.0
+33 silly reify moves {}
+34 silly audit bulk request { uuid: [ '9.0.1' ], ws: [ '8.20.0' ] }
+35 http cache uuid@https://registry.npmmirror.com/uuid/-/uuid-9.0.1.tgz 0ms (cache hit)
+36 http cache ws@https://registry.npmmirror.com/ws/-/ws-8.20.0.tgz 0ms (cache hit)
+37 silly tarball no local data for uuid@https://registry.npmmirror.com/uuid/-/uuid-9.0.1.tgz. Extracting by manifest.
+38 silly tarball no local data for ws@https://registry.npmmirror.com/ws/-/ws-8.20.0.tgz. Extracting by manifest.
+39 http fetch POST 404 https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk 33ms
+40 verbose audit error HttpErrorGeneral: 404 Not Found - POST https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk - [NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet
+40 verbose audit error     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-fetch\lib\check-response.js:103:15
+40 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+40 verbose audit error     at async #getReport (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:275:19)
+40 verbose audit error     at async AuditReport.run (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:100:19) {
+40 verbose audit error   headers: [Object: null prototype] {
+40 verbose audit error     server: [ 'Tengine' ],
+40 verbose audit error     date: [ 'Mon, 27 Apr 2026 03:49:49 GMT' ],
+40 verbose audit error     'content-type': [ 'application/json' ],
+40 verbose audit error     'transfer-encoding': [ 'chunked' ],
+40 verbose audit error     connection: [ 'keep-alive' ],
+40 verbose audit error     'strict-transport-security': [ 'max-age=5184000' ],
+40 verbose audit error     via: [ 'kunlun5.cn7737[,404666]' ],
+40 verbose audit error     'timing-allow-origin': [ '*' ],
+40 verbose audit error     eagleid: [ '7521a19917772617894107492e' ],
+40 verbose audit error     'x-fetch-attempts': [ '1' ]
+40 verbose audit error   },
+40 verbose audit error   statusCode: 404,
+40 verbose audit error   code: 'E404',
+40 verbose audit error   method: 'POST',
+40 verbose audit error   uri: 'https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk',
+40 verbose audit error   body: {
+40 verbose audit error     error: '[NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet'
+40 verbose audit error   },
+40 verbose audit error   pkgid: undefined
+40 verbose audit error }
+41 silly audit error [object Object]
+42 silly audit report null
+43 http fetch GET 200 https://cdn.npmmirror.com/packages/ws/8.20.0/ws-8.20.0.tgz 280ms (cache miss)
+44 http fetch GET 200 https://cdn.npmmirror.com/packages/uuid/9.0.1/uuid-9.0.1.tgz 424ms (cache miss)
+45 silly ADD node_modules/ws
+46 silly ADD node_modules/uuid
+47 verbose cwd D:\GitHub\AbaChat
+48 verbose os Windows_NT 10.0.26200
+49 verbose node v24.11.0
+50 verbose npm  v11.6.1
+51 notice
+51 notice New minor version of npm available! 11.6.1 -> 11.13.0
+51 notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
+51 notice To update run: npm install -g npm@11.13.0
+51 notice  { force: true, Symbol(proc-log.meta): true }
+52 verbose exit 0
+53 info ok
