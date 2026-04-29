@@ -17,16 +17,17 @@ const HEARTBEAT_INTERVAL = 30000; // 30秒
 const HEARTBEAT_TIMEOUT = 10000; // 10秒超时
 
 function getOrCreateRoom(password, mode = 'private') {
-  if (!rooms.has(password)) {
-    rooms.set(password, {
+  const roomKey = `${mode}:${password}`;
+  if (!rooms.has(roomKey)) {
+    rooms.set(roomKey, {
       users: new Map(),
       maxUsers: mode === 'group' ? 10 : 2,
       mode: mode,
-      nicknames: new Set(), // 跟踪房间内已使用的昵称
-      typingUsers: new Map() // 正在输入的用户 { ws -> timeoutId }
+      nicknames: new Set(),
+      typingUsers: new Map()
     });
   }
-  return rooms.get(password);
+  return rooms.get(roomKey);
 }
 
 // 获取房间内所有用户列表
@@ -38,9 +39,9 @@ function getUserList(room) {
 }
 
 function cleanupEmptyRooms() {
-  for (const [password, room] of rooms.entries()) {
+  for (const [roomKey, room] of rooms.entries()) {
     if (room.users.size === 0) {
-      rooms.delete(password);
+      rooms.delete(roomKey);
     }
   }
 }
@@ -139,7 +140,7 @@ wss.on('connection', (ws, req) => {
           // 加入房间
           const userId = uuidv4();
           ws.nickname = finalNickname;
-          ws.roomPassword = password;
+          ws.roomPassword = `${mode}:${password}`;
           ws.userId = userId;
           room.users.set(ws, { id: userId, nickname: ws.nickname });
           room.nicknames.add(finalNickname);
